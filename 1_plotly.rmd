@@ -1,0 +1,99 @@
+---
+title: "plotly"
+author: "jjw"
+date: "19 January 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Basic Scatterplot
+mode="markers"" below specifies scatterplot
+
+```{r, eval=FALSE}
+library(plotly)
+plot_ly(mtcars, x = mtcars$wt, y = mpg, mode = "markers")
+```
+
+## Scatterplot Colour
+
+```{r , echo=FALSE, message=FALSE}
+plot_ly(x = mtcars$wt, y = mtcars$mpg, mode = "markers", color = as.factor(mtcars$cyl))
+```
+
+## Continuous Colour
+Colour using a continuous variable
+
+```{r , echo=FALSE, message=FALSE}
+plot_ly(x = mtcars$wt, y = mtcars$mpg, mode = "markers", color = mtcars$disp)
+```
+
+## Scatterplot sizing
+using size argument
+
+```{r , echo=FALSE, message=FALSE}
+plot_ly(x = mtcars$wt, y = mtcars$mpg, mode = "markers", 
+        color = as.factor(mtcars$cyl), size = mtcars$hp)
+```
+
+## 3D Scatterplot
+
+
+```{r , eval=FALSE}
+set.seed(2016-07-21)
+temp <- rnorm(100, mean = 30, sd = 5)
+pressure <- rnorm(100)
+dtime <- 1:100
+plot_ly(x = temp, y = pressure, z = dtime,
+        type = "scatter3d", mode = "markers", color = temp)
+
+```
+
+## Line Graph
+
+
+```{r , eval=FALSE, message=FALSE}
+data("airmiles")
+plot_ly(x = time(airmiles), y=airmiles, mode="lines")
+
+```
+
+## Multiline Graph
+The default graph.  Dont need mode= or type=
+
+
+```{r , eval=FALSE, message=FALSE}
+library(plotly)
+library(tidyr)
+library(dplyr)
+data("EuStockMarkets")
+
+stocks <- as.data.frame(EuStockMarkets) %>% 
+  gather(index, price) %>% 
+  mutate(time= rep(time(EuStockMarkets), 4))
+
+
+plot_ly(stocks, x = stocks$time, y=stocks$price, color = stocks$index, mode="lines")
+
+```
+
+## Histogram
+
+```{r , eval=FALSE, message=FALSE}
+plot_ly(x = precip, type="histogram")
+
+```
+
+## boxplot
+```{r , eval=FALSE, message=FALSE}
+plot_ly(y = iris$Petal.Length, color=iris$Species type="box")
+
+```
+## heatmap
+```{r , eval=FALSE, message=FALSE}
+terrain1 <- matrix(rnorm(100*100), nrow=100, ncol=100)
+plot_ly(z=terrain1, type="heatmap")
+
+```
