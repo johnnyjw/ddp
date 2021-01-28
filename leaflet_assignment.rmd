@@ -1,0 +1,39 @@
+---
+title: "Developing Data Products Assignment 2"
+author: "Jonathan Wharton"
+date: "28 January 2021"
+output: ioslides_presentation
+---
+
+## Cafe's in West Ealing, London
+
+```{r, echo=FALSE, message=FALSE}
+
+library(dplyr)
+library(leaflet)
+
+HanwellLatLong <- data.frame(
+                             lat = c(51.509, 51.5087, 51.50855, 51.49648,
+                                     51.4958, 51.51103, 51.51036, 51.51031, 51.50647),
+                             lng = c(-0.33805,  -0.33783,  -0.33811,  -0.32524,
+                                     -0.32457,  -0.31924,  -0.32372,  -0.32405,  -0.33742),
+                             col = c('orange', 'orange', 'red', 'green',
+                                     'red', 'green', 'brown', 'black', 'blue'),
+                             stringsAsFactors = FALSE
+)
+
+name = c('Clocktower Cafe', 'Fade to Black', 'Big Bites Cafe',
+                                      'Number 6 Coffee', 'Station Cafe', 'Doppio Cafe',
+                                      'Costa', 'Starbucks', 'W7 Emporium')
+
+HanwellLatLong %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addCircleMarkers(popup = name, color=HanwellLatLong$col) %>% 
+  addLegend(labels = c("Independent - Best", "Independent - Above Avg",
+                       "Independent - Avg", "Independent - Below Avg",
+                       "Chain - Above Avg", "Chain - Below Avg"),
+            colors = c("green", "blue", "orange", "red", "brown", "black"))
+
+```
+
