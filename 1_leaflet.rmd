@@ -1,0 +1,117 @@
+---
+title: "Leaflet"
+author: "Johnny Wharton"
+date: "25 January 2021"
+output: ioslides_presentation
+---
+
+## My first map
+
+```{r setup, echo=FALSE}
+library(dplyr)
+library(leaflet)
+my_map <- leaflet() %>% 
+  addTiles()
+my_map
+```
+
+## Markers
+
+```{r, echo=FALSE}
+
+my_map <- my_map %>% 
+  addMarkers(lat=39.2980803, lng=-76.5898801,
+             popup="Jeff Leek's Office")
+my_map
+```
+
+## Many Markers
+
+```{r, echo=FALSE}
+df <- data.frame(lat = runif(20, min = 39.2, max = 39.3),
+                 lng = runif(20, min = -76.6, max = -76.5))
+
+
+df %>%
+  leaflet() %>% 
+  addTiles() %>% 
+  addMarkers()
+
+```
+
+## Custom Markers
+
+```{r, echo=FALSE}
+
+hopkinsIcon <- makeIcon(
+  iconUrl = "hopkins.png",
+  iconWidth = 31*215/230, iconHeight = 31,
+  iconAnchorX = 31*215/230/2, iconAnchorY = 16
+)
+
+hopkinsLatLong <- data.frame(lat = c(39.2973166, 39.3288851, 39.2906617),
+                             lng = c(-76.5929798, -76.6206598, -76.5469683))
+
+hopkinsSites <- c(
+  "<a href='https://www.hbo.com/the-wire'>The Wire</a>",
+  "<a href='https://www.imdb.com/title/tt0083833/'>Diner</a>",
+  "<a href='http://www.dreamlandnews.com/'>John Waters</a>"
+)
+    
+
+hopkinsLatLong %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addMarkers(icon = hopkinsIcon, popup = hopkinsSites)
+
+```
+
+## Mapping Clusters
+
+```{r, echo=FALSE}
+df <- data.frame(lat = runif(500, min = 39.25, max = 39.35),
+                 lng = runif(500, min = -76.65, max = -76.55))
+
+
+df %>%
+  leaflet() %>% 
+  addTiles() %>% 
+  addMarkers(clusterOptions = markerClusterOptions())
+
+```
+
+## Mapping Circle Markers
+
+Instead of adding markers or clusters you can easily add
+circle markers using `addCircleMarkers()`.
+
+```{r, echo=FALSE}
+df <- data.frame(lat = runif(20, min = 39.25, max = 39.35),
+                 lng = runif(20, min = -76.65, max = -76.55))
+
+
+df %>%
+  leaflet() %>% 
+  addTiles() %>% 
+  addCircleMarkers()
+
+```
+
+## Drawing Circles
+```{r, echo=FALSE}
+md_cities = data.frame(name = c("Baltimore", "Frederick", "Rockville", "Gaithersburg",
+                                "Bowie", "Hagerstown", "Annapolis", "College Park",
+                                "Salisbury", "Laurel"),
+                       pop = c(619493, 66169, 62334, 61045, 55232,
+                               39830, 38880, 30587, 30484, 25346),
+                       lat = c(39.2920592, 39.4143921, 39.0840, 39.1434, 39.0068, 39.6418,
+                               38.9784, 38.9897, 38.3607, 39.0993),
+                       lng = c(-76.6077852, -77.4204875, -77.1528, -77.2014, -76.7791,
+                               -77.7200, -76.4922, -76.9378, -75.5994, -76.8483))
+
+md_cities %>% 
+  leaflet() %>% 
+  addTiles() %>% 
+  addCircles(weight = 1, radius = sqrt(md_cities$pop) * 30)
+
+```
