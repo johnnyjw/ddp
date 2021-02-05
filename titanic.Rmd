@@ -1,0 +1,23 @@
+---
+title: "titanic"
+author: "Johnny Wharton"
+date: "1 February 2021"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(dplyr)
+library(tidyr)
+library(plotly)
+titanic <- read.csv("titanic.csv") %>% 
+  mutate(Survival = if_else(Survived == 0, "Died", "Survived"))
+```
+
+## Titanic Slide
+
+
+```{r plot, echo = TRUE}
+plot_ly(titanic, x=~Pclass, y=~Survived, color=~Sex, type="bar")
+```
+
