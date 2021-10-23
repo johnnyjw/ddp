@@ -1,0 +1,47 @@
+---
+title: "Global Volcano Eruptions (1900 onwards)"
+author: "Jonathan Wharton"
+date: "20/10/2021"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(plotly)
+
+volcanoes <- read.csv("significant-volcanic-eruptions.csv") %>%
+  rename('erupt' = "Number.of.significant.volcanic.eruptions..NGDC.WDS.") %>% 
+  filter(Year >= 1900) %>% 
+  group_by(Entity, Code) %>% 
+  summarize(eruptions = sum(erupt)) %>% 
+  ungroup() %>% 
+  filter(Code != "")
+```
+
+## Significant Volcanic Eruptions since 1900 (by Country) 
+
+```{r volcanoes}
+
+
+plot_ly(type='choropleth', 
+        locations=volcanoes$Code, 
+        z=volcanoes$eruptions, 
+        text=volcanoes$Entity, 
+        colorscale="rdylbu" ) %>% 
+  colorbar(limits = c(0, 125)) %>% 
+  add_annotations( 
+     text='Source: National Geophysical Data Center / World Data Service (NGDC/WDS): <br>NCEI/WDS Global Significant Volcanic Eruptions Database. NOAA National Centers for Environmental Information. doi:10.7289/V5JW8BSH',
+     xref='x domain',
+     x=0.5,
+     yref='y domain',
+     y=-0.05,
+     font = list(size=10),
+     showarrow = FALSE
+   )
+```
+
+## Thank You!
+
+
+
