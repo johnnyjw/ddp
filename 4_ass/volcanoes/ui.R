@@ -55,7 +55,8 @@ shinyUI(fluidPage(
                                                display Country/Regions or Continents>.  You can toggle between these two modes on both the Plot and the Table."),
                                         tags$p("*A significant eruption is classified as one that meets at least one of the following criteria: caused fatalities, 
                                         caused moderate damage (approximately $1 million or more), with a Volcanic Explosivity Index (VEI) of 6 or larger, caused a tsunami, 
-                                               or was associated with a major earthquake."))
+                                               or was associated with a major earthquake."),
+                                        tags$a(href = "https://github.com/johnnyjw/ddp/tree/main/4_ass/volcanoes", "The server.R and ui.R can be found here"))
                                ))
           )
     ),
