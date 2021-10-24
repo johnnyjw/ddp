@@ -1,0 +1,60 @@
+---
+title: "Volcanic Eruptions around the world"
+author: "Jonathan Wharton"
+date: "24/10/2021"
+output: 
+  ioslides_presentation:
+    css: styles.css
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(readxl)
+```
+
+## The Assignment
+
+The goals of this assignment were to:
+
+1. create an original Shiny application and deploy it.
+2. create a reproducible pitch presentation about the application.
+
+#### This Shiny Application allows users to visualize volcanic eruption data and get insights to where different regions of the world have had many volcanic eruptions.
+
+### Links
+[The Shiny application](https://johnny-wharton.shinyapps.io/volcanoes/) <br>
+[The code that created the application](https://github.com/johnnyjw/ddp/tree/main/4_ass/volcanoes)   (right click to open link in new tab)
+
+## The Data
+* This dataset comes from the National Geophysical Data Center / World Data Service. 
+* Each row in the dataset is a Country/Region, a year, and the number of significant volcano eruptions in that year.
+* A significant eruption is classified as one that meets at least one of the following criteria: caused fatalities, caused moderate damage (approximately $1 million or more), with a Volcanic Explosivity Index (VEI) of 6 or larger, caused a tsunami, or was associated with a major earthquake.
+* The timespan of the data is from 1750 BCE to 2017 AD.
+* The completeness of the data for earlier years is expected to be very low.
+
+## The Application
+### What does the application do?
+* Shows the total number of Significant Volcanic eruptions by Country/Region or by Continent and see where most of the eruptions have occured.
+* Allows the user to control the timespan for which the total number of Significant Volcanic Eruptions are calculated.
+* Allows the user to limit the top number of countries/regions or continents to display on the graph and table.
+
+### Why is this useful?
+* Allows the user to get quick insights into where in the world there are volcanic eruptions
+*     How incomplete is earlier data?
+*     Have the same parts of the world consistently had the most eruptions across time?
+*     Where have the most eruptions occurred during certain timespans?
+
+
+## Data Sample
+
+Below is a sample of the volcanic eruptions dataset, in this case the last few rows of data from Indonesia. 
+
+```{r erupt, echo=TRUE}
+cont <- read_excel('continents.xlsx')
+erupt <- read.csv('significant-volcanic-eruptions.csv') %>% 
+  rename('erupt' = "Number.of.significant.volcanic.eruptions..NGDC.WDS.") %>% 
+  left_join(cont %>% select(Code, Continent), by = "Code") %>% 
+  filter(Code=="IDN")
+tail(erupt)
+```
+[The full code for the application is here](https://github.com/johnnyjw/ddp/tree/main/4_ass/volcanoes)

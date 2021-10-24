@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+/* This controls the slide background for top level title slides*/
+
+slides > slide.title-slide {
+  background: linear-gradient(#003399, #ffb380);
+  background-color: grey;
+}
+
+/* Import google fonts */
+
+@import url('https://fonts.googleapis.com/css?family=Lora|Open+Sans&display=swap');
+
+@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto:light&display=swap');
+
+
+h2 {
+  font-family: Roboto, sans-serif;
+  color: black;
+  font-weight: 200;
+  font-size: 40px;
+  line-height: 45px;
+}
+
+h3 {
+  font-family: Roboto, sans-serif;
+  color: black;
+  font-weight: 400;
+}
+
+h4 {
+  font-family: Roboto, sans-serif;
+  color: blue;
+  font-weight: 400;
+}
+
+
+
+/* Paragraph text */
+p {
+  font-family: "Open sans", Serif;
+  color: #003669;
+}
+
+/* Unordered lists */
+
+ul {
+  font-family: "Open sans", sans-serif;
+  color: #003669;
+}
+
+ul pre  {
+  font-family: "Open sans", sans-serif;
+  color: #003669;
+  margin-left: 2em;
+  line-height: 1px;
+  list-style-position: inside;
+}
+
+/* Ordered lists */
+
+li {
+  font-family: "Open sans", sans-serif;
+  color: #003669;
+}
